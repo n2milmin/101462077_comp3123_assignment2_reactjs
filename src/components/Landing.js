@@ -1,5 +1,7 @@
 import React from "react";
 import { getEmployeeById } from "../api";
+import { Link } from 'react-router-dom';
+
 
 export default class Landing extends React.Component {
 
@@ -21,17 +23,16 @@ export default class Landing extends React.Component {
 
     // send to update screen 
     handleUpdate = id => {
-        navigate(`/update/${id}`)
     }
 
     // Send to delete screen 
     handleDelete = id => {
-        navigate(`/delete/${id}`)
+
     }
 
     // Send to View screen 
     handleView = id => {
-        navigate(`/details/${id}`)
+
     }
 
     render() {
@@ -51,11 +52,11 @@ export default class Landing extends React.Component {
                     {
                         this.state.employees.map(emp => (
                             <tr>
-                                <td></td>
-                                <td></td>
-                                <td></td>
+                                <td>{ emp['first_name'] }</td>
+                                <td>{ emp['last_name'] }</td>
+                                <td>{ emp['id'] }</td>
                                 <td>
-                                    <button className="updateBtn" onClick={ this.handleUpdate }>Update</button>
+                                    <Link to={`/update/${emp.id}`}>Update</Link>
                                     <button className="delBtn" onclick={ this.handleDelete }>Delete</button>
                                     <button className="viewBtn" onClick={ this.handleView }>View</button>
                                 </td>
