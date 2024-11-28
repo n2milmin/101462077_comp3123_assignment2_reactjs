@@ -1,11 +1,14 @@
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:3000/api/v1'})
+const API = axios.create({ 
+    baseURL: 'http://localhost:3000/api/v1',
+    headers: { 'Content-Type': 'application/json' },
+})
 
 
 /******************************** Employees ********************************/
 // GET emp
-export const getEmployees = () => API.get('/emp/employees')
+export const getEmployees = async () => API.get('/emp/employees')
 
 // GET emp by id 
 export const getEmployeeById = id => API.get(`/emp/employees/${id}`)

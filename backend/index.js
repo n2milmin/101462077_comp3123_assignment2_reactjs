@@ -3,10 +3,16 @@ const app = express();
 const mongoose = require('mongoose');
 const apiv1 = express();
 const userRouter = require('./routes/users');
-const empRouter = require('./routes/employees')
+const empRouter = require('./routes/employees');
+const cors = require('cors');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true})); 
+app.use(cors({
+    origin: "http://localhost:3001",
+    methods: ["GET", "POST"],
+    allowedHeaders: ['Content-Type']
+}));
 
 apiv1.use('/user', userRouter);
 apiv1.use('/emp', empRouter);
