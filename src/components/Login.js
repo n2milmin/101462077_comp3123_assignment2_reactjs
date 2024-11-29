@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -10,6 +10,11 @@ const Login = () => {
     const [ username, setUsername ] = useState('johndoe')
     const [ password, setPassword ] = useState('password123')
     const [ message, setMessage ] = useState('')
+
+    useEffect(() => {
+        if(auth.accessToken)
+            navigate('/employeeList')
+    })
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -23,8 +28,9 @@ const Login = () => {
             await handleLogin(username, password)
             
             if(auth.accessToken){
+                console.log("YAY",auth.accessToken)
                 setMessage('')
-                navigate('/')
+                navigate('/employeeList')
             } 
             else {
                 setMessage(auth.error)
@@ -36,8 +42,7 @@ const Login = () => {
     }
 
     return (
-        <div>
-            <div className="container">
+        <div className="container">
             <header>
                 <h1>Employee Management App</h1>
                 <Link className="blueBtn" to='/signup'>Signup</Link>
@@ -74,7 +79,6 @@ const Login = () => {
             <footer>
                 &copy; Nicole Milmine - 101462077
             </footer>
-        </div>
         </div>
     )
 }

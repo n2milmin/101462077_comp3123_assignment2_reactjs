@@ -1,7 +1,16 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useAuth } from '../AuthContext';
 
 const Landing = () => {
+
+    const { auth } = useAuth()
+    const navigate = useNavigate()
+
+    useEffect(() => {
+        if(auth.accessToken)
+            navigate('/employeeList')
+    })
 
     return(
         // login or signup 
