@@ -24,36 +24,43 @@ export default class Landing extends React.Component {
     render() {
         return(
             // login or signup 
-            <div>
-                <h1>Employee Management App</h1>
-                <h1>Employee List</h1>
+            <div className="container">
+                <header>
+                    <h1>Employee Management App</h1>
+                    <Link className="blueBtn" to={'/logout'}>Logout</Link>
+                </header>
+
+                <h2>Employee List</h2>
                 <Link className="blueBtn" to={`/add}`}>Add Employee</Link>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Employee First Name</th>
-                            <th>Employee Last Name</th>
-                            <th>Employee Email Id</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
+                <ul className="responsive-table">
+                    <li className="table-header">
+                        <div className="col-1">First Name</div>
+                        <div className="col-2">Last Name</div>
+                        <div className="col-3">Email</div>
+                        <div className="col-4">Actions</div>
+                    </li>
                     <tbody>
                         {
                             this.state.employees.map(emp => (
-                                <tr>
-                                    <td>{ emp.first_name }</td>
-                                    <td>{ emp.last_name }</td>
-                                    <td>{ emp.email }</td>
-                                    <td>
+                                <li className="table-row">
+                                    <div className="col-1">{emp.first_name}</div>
+                                    <div className="col-2">{emp.last_name}</div>
+                                    <div className="col-3">{emp.email}</div>
+                                    <div className="col-4">
                                         <Link className="blueBtn" to={`/update/${emp._id}`}>Update</Link>
                                         <Link className="redBtn" to={`/update/${emp._id}`}>Delete</Link>
                                         <Link className="blueBtn" to={`/update/${emp._id}`}>View</Link>
-                                    </td>
-                                </tr>
+                                    </div>
+
+                                </li>
                             ))
                         }
                     </tbody>
-                </table>
+                </ul>
+
+                <footer>
+                    &copy; Nicole Milmine - 101462077
+                </footer>
             </div>
         )
     }
