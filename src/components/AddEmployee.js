@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-export const EditEmployee = ({ employee }) => {
+export const AddEmployee = () => {
 
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
@@ -10,24 +10,13 @@ export const EditEmployee = ({ employee }) => {
     const [salary, setSalary] = useState("");
     const [department, setDepartment] = useState("");
 
-    useEffect(() => {
-        if (employee) {
-            setFirstName(employee.first_name || "");
-            setLastName(employee.last_name || "");
-            setEmail(employee.email || "");
-            setPosition(employee.position || "");
-            setSalary(employee.salary || "");
-            setDepartment(employee.department || "");
-        }
-    }, [employee]);
-
     const handleSubmit = () => {
 
     }
 
     return (
         <form className="add-form">
-            <h2>{employee ? "Edit Employee" : "Add Employee"}</h2>
+            <h2>Add Employee</h2>
 
             <ul className="responsive-table">
                 <li className="table-header">say more</li>
@@ -98,10 +87,7 @@ export const EditEmployee = ({ employee }) => {
                     />
                 </li>      
                 <li className="table-row">
-                    { employee ? 
-                        <Link className="blueBtn" to="/create" >Submit</Link> :
-                        <Link className="blueBtn" to="/update">Update</Link>
-                    }
+                    <button className="blueBtn" onClick={handleSubmit} >Submit</button> 
                 </li>          
             </ul>
         </form >
