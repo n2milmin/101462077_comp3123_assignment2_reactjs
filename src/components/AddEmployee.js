@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useAuth } from "../AuthContext";
 
 export const AddEmployee = () => {
 
+    const { handleLogout } = useAuth();
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
@@ -16,6 +17,11 @@ export const AddEmployee = () => {
 
     return (
         <form className="add-form">
+            <header>
+                <h1>Employee Management App</h1>
+                <button className="blueBtn" onClick={handleLogout}>Logout</button>
+            </header>
+
             <h2>Add Employee</h2>
 
             <ul className="responsive-table">
@@ -88,8 +94,13 @@ export const AddEmployee = () => {
                 </li>      
                 <li className="table-row">
                     <button className="blueBtn" onClick={handleSubmit} >Submit</button> 
+                    <button className="blueBtn" to={`/employeeList`}>Back</button>
                 </li>          
             </ul>
+            
+            <footer>
+                &copy; Nicole Milmine - 101462077
+            </footer>
         </form >
     )
 }

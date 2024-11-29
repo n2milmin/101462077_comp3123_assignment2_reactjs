@@ -1,14 +1,19 @@
 import React from "react";
-import { Link } from 'react-router-dom';
+import { useAuth } from "../AuthContext";
 
 export const EmployeeDetails = ({ employee }) => {
 
-    const handleUpdate = () => {
+    const { handleLogout } = useAuth();
+    const handleDelete = () => {
 
     }
 
     return (
-        <div className="">
+        <div className="container">
+            <header>
+                <h1>Employee Management App</h1>
+                <button className="blueBtn" onClick={handleLogout}>Logout</button>
+            </header>
             <h2>Employee Details</h2>
 
             <ul className="responsive-table">
@@ -41,11 +46,16 @@ export const EmployeeDetails = ({ employee }) => {
                     <p className="right">${ employee.salary }</p>
                 </li>      
                 <li className="table-row">
-                    <Link className="blueBtn" to={`/update/${employee._id}`}>Update</Link>
-                    <Link className="redBtn" to={`/update/${employee._id}`}>Delete</Link>
-                    <Link className="blueBtn" to={`/`}>Back</Link>
+                    <button className="blueBtn" to={`/update/${employee._id}`}>Update</button>
+                    <button className="redBtn" to={ handleDelete }>Delete</button>
+                    <button className="blueBtn" to={`/employeeList`}>Back</button>
                 </li>          
             </ul>
+
+            
+            <footer>
+                &copy; Nicole Milmine - 101462077
+            </footer>
         </div >
     )
 }

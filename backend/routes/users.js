@@ -99,8 +99,7 @@ router.post("/login", async (req, res) => {
 
         const accessToken = jwt.sign(
             { id: foundUser._id},
-            ACCESS_SECRET,
-            { expiresIn: '1day'}
+            ACCESS_SECRET
         )
         
         res.status(200).json({

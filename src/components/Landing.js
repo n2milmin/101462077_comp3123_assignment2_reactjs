@@ -1,9 +1,6 @@
 import React from "react";
-import { useAuth } from "../AuthContext";
 
 export const Landing = () => {
-
-    const { handleLogin, handleSignup } = useAuth();
 
     return(
         // login or signup 
@@ -15,10 +12,10 @@ export const Landing = () => {
             <ul className="responsive-table">
                 <li className="table-header">Welcome</li>
                 <li className="table-row">
-                    <button className="blueBtn" onClick={handleLogin}>Login</button>
+                    <button className="blueBtn" to='/login'>Login</button>
                 </li>
                 <li className="table-row">
-                    <button className="blueBtn" onClick={handleSignup}>Signup</button>
+                    <button className="blueBtn" to='/signup'>Signup</button>
                 </li>
             </ul>
 

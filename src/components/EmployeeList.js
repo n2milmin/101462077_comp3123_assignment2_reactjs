@@ -1,14 +1,21 @@
-import React from "react";
-import { Link } from 'react-router-dom';
+import React, { useState } from "react";
+import { useAuth } from "../AuthContext";
 
-export const EmployeeList = ({ employees }) => {
+export const EmployeeList = () => {
     
+    const { handleLogout } = useAuth();
+    const employees = useState('')
 
     return (
-        <div>
+        <div className="container">
+            <header>
+                <h1>Employee Management App</h1>
+                <button className="blueBtn" onClick={handleLogout}>Logout</button>
+            </header>
+
             <h2>Employee List</h2>
             <div className="addBtn">
-                <Link className="blueBtn" to={`/add}`}>Add Employee</Link>
+                <button className="blueBtn" to={`/add}`}>Add Employee</button>
             </div>
 
             <ul className="responsive-table">
@@ -25,15 +32,19 @@ export const EmployeeList = ({ employees }) => {
                             <div className="col-2">{emp.last_name}</div>
                             <div className="col-3">{emp.email}</div>
                             <div className="col-4">
-                                <Link className="blueBtn" to={`/update/${emp._id}`}>Update</Link>
-                                <Link className="redBtn" to={`/update/${emp._id}`}>Delete</Link>
-                                <Link className="blueBtn" to={`/update/${emp._id}`}>View</Link>
+                                <button className="blueBtn" to={`/update/${emp._id}`}>Update</button>
+                                <button className="redBtn" to={`/update/${emp._id}`}>Delete</button>
+                                <button className="blueBtn" to={`/update/${emp._id}`}>View</button>
                             </div>
 
                         </li>
                     ))
                 }
             </ul>
+
+            <footer>
+                &copy; Nicole Milmine - 101462077
+            </footer>
         </div>
     )
 }

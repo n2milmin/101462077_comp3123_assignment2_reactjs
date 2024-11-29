@@ -1,28 +1,22 @@
-import React, { createContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 import { login, logout, signup } from './api';
-import { useNavigate } from 'react-router-dom';
+import { set } from 'mongoose';
+import { Navigate } from 'react-router-dom';
 
 
 const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     
-    const [ auth, setAuth ] = useState({
-        authenticated: false,
-        accessToken: null
-    })
-    const navigate = useNavigate();
+    const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accesstoken') || '')
 
     useEffect(() => {
-        const accessToken = localStorage.getItem('accessToken')
-
-        if ( accessToken && refreshToken ){
-            setAuth({
-                authenticated: true,
-                accessToken
-            })
-        }
-    }, [])
+        if( accessToken )
+            localStorage.setItem('accessToken', accessToken)
+        else 
+            localStorage.removeItem('accessToken')
+        
+    }, [accessToken])
 
 
 
@@ -32,11 +26,8 @@ export const AuthProvider = ({ children }) => {
             const { data } = await signup({ user })
 
             localStorage.setItem('accessToken', data.accessToken)
-            setAuth({
-                authenticated: true,
-                accessToken
-            })
-            navigate('/')
+            setAccessToken( data.accessToken )
+
         } catch (e) {
             console.log("Frontend Signup failure: ", e)
         }
@@ -49,11 +40,9 @@ export const AuthProvider = ({ children }) => {
             const { data } = await login({ username, password })
 
             localStorage.setItem('accessToken', data.accessToken)
-            setAuth({
-                authenticated: true,
-                accessToken
-            })
-            navigate('/')
+            setAccessToken( data.accessToken )
+
+            Navigate('/employeeList')
 
         } catch (e) {
             console.log("Frontend Login failure: ", e)
@@ -65,11 +54,8 @@ export const AuthProvider = ({ children }) => {
     const handleLogout = async () => {
         try {            
             localStorage.removeItem('accessToken')
-            setAuth({
-                authenticated: false,
-                accessToken: null
-            })
-            navigate('/login')
+            setAccessToken( '' )
+
 
         } catch (e) {
             console.log("Frontend Logout failure: ", e)
@@ -80,7 +66,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
-            auth,
+            accessToken,
             handleLogin,
             handleLogout,
             handleSignup
@@ -89,3 +75,5 @@ export const AuthProvider = ({ children }) => {
         </AuthContext.Provider>
     )
 };
+
+export const useAuth = () => useContext(AuthContext);

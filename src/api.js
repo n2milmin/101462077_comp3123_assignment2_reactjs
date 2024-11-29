@@ -7,9 +7,9 @@ const API = axios.create({
 
 
 API.interceptors.request.use(temp => {
-    const token = localStorage.getItem('authToken')
-    if(token) 
-        temp.headers.Authorization = `${token}`
+    const accessToken = localStorage.getItem('accessToken')
+    if(accessToken) 
+        temp.headers.Authorization = `Bearer ${accessToken}`
     return temp
 })
 
