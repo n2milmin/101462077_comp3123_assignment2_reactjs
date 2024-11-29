@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
-export const AddEmployee = () => {
+export const EditEmployee = ({ employee }) => {
 
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
@@ -9,20 +9,31 @@ export const AddEmployee = () => {
     const [salary, setSalary] = useState("");
     const [department, setDepartment] = useState("");
 
+    useEffect(() => {
+        if (employee) {
+            setFirstName(employee.firstName || "");
+            setLastName(employee.lastName || "");
+            setEmail(employee.email || "");
+            setPosition(employee.position || "");
+            setSalary(employee.salary || "");
+            setDepartment(employee.department || "");
+        }
+    }, [employee]);
+
     const handleSubmit = () => {
 
     }
 
     return (
         <form className="add-form">
-            <h2>Add Employee</h2>
+            <h2>{employee ? "Edit Employee" : "Add Employee"}</h2>
 
             <ul className="responsive-table">
                 <li className="table-header">say more</li>
 
                 {/* First Name  */}
                 <li className="table-row">
-                    <p>First Name: </p>
+                    <p className="left">First Name: </p>
                     <input
                         type="text"
                         id="first_name"
@@ -33,8 +44,8 @@ export const AddEmployee = () => {
 
                 {/* Last Name */}
                 <li className="table-row">
-                    <p className="input-name">Last Name: </p>
-                    <input
+                    <p className="left">Last Name: </p>
+                    <input 
                         type="text"
                         id="last_name"
                         value={lastName}
@@ -44,7 +55,7 @@ export const AddEmployee = () => {
                 
                 {/* Email */}
                 <li className="table-row">
-                    <p>Email: </p>
+                    <p className="left">Email: </p>
                     <input
                         type="email"
                         id="email"
@@ -55,7 +66,7 @@ export const AddEmployee = () => {
 
                 {/* Department */}
                 <li className="table-row">
-                    <p>Department: </p>
+                    <p className="left">Department: </p>
                     <input
                         type="text"
                         id="department"
@@ -66,7 +77,7 @@ export const AddEmployee = () => {
 
                 {/* Position */}
                 <li className="table-row">
-                    <p>Position: </p>
+                    <p className="left">Position: </p>
                     <input
                         type="text"
                         id="position"
@@ -77,7 +88,7 @@ export const AddEmployee = () => {
 
                 {/* Salary */}
                 <li className="table-row">
-                    <p>Salary: </p>
+                    <p className="left">Salary: </p>
                     <input
                         type="text"
                         id="salary"

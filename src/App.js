@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'; 
-import AddEmployee from "./components/AddEmployee";
+import AddEmployee from "./components/EditEmployee";
 import DeleteEmployee from "./components/DeleteEmployee";
 import EmployeeDetails from "./components/EmployeeDetails";
 import Landing from './components/Landing';

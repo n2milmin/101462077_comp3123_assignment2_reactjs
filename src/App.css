@@ -99,12 +99,16 @@ For some reason the list sits 40px to the right ¯\_('-')_/¯ */
     flex-direction: row;
     justify-content: center;
   }
-  .table-row p{
+  .table-row .left{
     margin-left: 30%;
+  }
+  .table-row .right{
+    margin-left: auto;
+    margin-right: 35%;
   }
   .table-row input {
     margin-left: auto;
-    margin-right: 30%;
+    margin-right: 25%;
     border-radius: 5px;
     padding: 12px 15px; 
     font-size: 16px; 
