@@ -3,54 +3,90 @@
 body {
   font-family: 'lato', sans-serif;
   background-color: black;
+  margin: 0;
 }
 
 
 .container {
-  max-width: 1200px;
-  margin-left: auto;
-  margin-right: auto;
+  width: 1200px;
   background-color: #FFFFFF;
   height: 100vh;
+  display: flex; 
+  flex-direction: column; 
+  justify-self: center;
+  align-items: center; 
+  justify-content: flex-start;
+  margin: 0 auto;
+  box-sizing: border-box;
 }
 
 header {
   display: flex;
+  width: 1120px;
   align-items: center;
   justify-content: space-between;
   justify-items: center;
-  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1); 
+  box-shadow: 0px 4px 6px #0000001a; 
   background-color: #819bc6; 
   color: #FFFFFF; 
-  padding: 10px 20px; 
+  padding: 10px 40px; 
+  border-radius: 0 0 5px 5px;
+}
+
+/* Footer */
+footer {
+  background-color: #819bc6; 
+  color: white;
+  text-align: center; 
+  padding: 20px;
+  position: absolute; 
+  bottom: 0;
+  width: 1160px;
+  font-size: 1rem; 
+  border-radius: 5px 5px 0 0;
 }
 
 
-/* Employees List  */
+
+
+
+
+/********************************** Employees List  **********************************/
 h2 {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* width: 100%; */
+  padding: 30px 10px 15px 10px;
+}
+
+.addBtn{
+  display: flex;
+  justify-content: left;
+  width: 1100px;
 }
 
 /* Employees List Table 
-Taken from free cite & adapted to work here */
+Taken from free cite & adapted to work here 
+For some reason the list sits 40px to the right ¯\_('-')_/¯ */
 .responsive-table {
   li {
     width: 1100px;
     border-radius: 3px;
-    padding: 25px 30px;
+    padding: 25px 0 25px;
     display: flex;
-    justify-content: space-between;
+    margin-left: -40px;
     margin-bottom: 25px;
     text-align: center;
     align-items: center;
+    justify-content: center;
   }
   .table-header {
-    background-color: #95A5A6;
+    background-color: #8aa0a1;
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.03em;
+    padding: 30px 0 30px;
   }
   .table-row {
     background-color: #8f8fb9;
@@ -74,20 +110,21 @@ Taken from free cite & adapted to work here */
   }
 }
 
-
 /* Table Btns */
-.blueBtn {
+.blueBtn, .redBtn {
   display: inline-block;
   padding: 10px 20px;
   font-size: 16px;
   color: white;
-  background-color: #007bffd3;
-  border: none;
   border-radius: 5px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
   transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.blueBtn {
+  background-color: #007bffd3;
 }
 
 .blueBtn:hover {
@@ -96,17 +133,7 @@ Taken from free cite & adapted to work here */
 }
 
 .redBtn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: white;
   background-color: #ff0000d0;
-  border: none;
-  border-radius: 5px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
 }
 
 .redBtn:hover {
@@ -116,14 +143,4 @@ Taken from free cite & adapted to work here */
 
 
 
-/* Footer */
-footer {
-  background-color: #819bc6; /* Dark background */
-  color: white; /* White text */
-  text-align: center; /* Center text */
-  padding: 20px; /* Padding for spacing */
-  position: absolute; /* To keep it in the flow */
-  bottom: 0;
-  width: 1200px;
-  font-size: 1rem; /* Adjust text size */
-}
+/********************************** Add Employee **********************************/
