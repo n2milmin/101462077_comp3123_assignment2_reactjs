@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 export const EditEmployee = ({ employee }) => {
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [first_name, setFirstName] = useState("");
+    const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [position, setPosition] = useState("");
     const [salary, setSalary] = useState("");
@@ -11,8 +12,8 @@ export const EditEmployee = ({ employee }) => {
 
     useEffect(() => {
         if (employee) {
-            setFirstName(employee.firstName || "");
-            setLastName(employee.lastName || "");
+            setFirstName(employee.first_name || "");
+            setLastName(employee.last_name || "");
             setEmail(employee.email || "");
             setPosition(employee.position || "");
             setSalary(employee.salary || "");
@@ -37,7 +38,7 @@ export const EditEmployee = ({ employee }) => {
                     <input
                         type="text"
                         id="first_name"
-                        value={firstName}
+                        value={first_name}
                         onChange={c => setFirstName(c.target.value)}
                     />
                 </li>
@@ -48,7 +49,7 @@ export const EditEmployee = ({ employee }) => {
                     <input 
                         type="text"
                         id="last_name"
-                        value={lastName}
+                        value={last_name}
                         onChange={c => setLastName(c.target.value)}
                     />
                 </li>
@@ -97,7 +98,10 @@ export const EditEmployee = ({ employee }) => {
                     />
                 </li>      
                 <li className="table-row">
-                    <button className="blueBtn" onClick={ handleSubmit }>Submit</button>
+                    { employee ? 
+                        <Link className="blueBtn" to="/create" >Submit</Link> :
+                        <Link className="blueBtn" to="/update">Update</Link>
+                    }
                 </li>          
             </ul>
         </form >

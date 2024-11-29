@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 export const EmployeeDetails = ({ employee }) => {
 
@@ -40,7 +41,9 @@ export const EmployeeDetails = ({ employee }) => {
                     <p className="right">${ employee.salary }</p>
                 </li>      
                 <li className="table-row">
-                    <button className="blueBtn" onClick={ handleUpdate }>Update</button>
+                    <Link className="blueBtn" to={`/update/${employee._id}`}>Update</Link>
+                    <Link className="redBtn" to={`/update/${employee._id}`}>Delete</Link>
+                    <Link className="blueBtn" to={`/`}>Back</Link>
                 </li>          
             </ul>
         </div >

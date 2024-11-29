@@ -98,13 +98,14 @@ For some reason the list sits 40px to the right ¯\_('-')_/¯ */
     display: flex;
     flex-direction: row;
     justify-content: center;
+    gap: 80px;
   }
   .table-row .left{
     margin-left: 30%;
   }
   .table-row .right{
     margin-left: auto;
-    margin-right: 35%;
+    margin-right: 30%;
   }
   .table-row input {
     margin-left: auto;
@@ -112,6 +113,7 @@ For some reason the list sits 40px to the right ¯\_('-')_/¯ */
     border-radius: 5px;
     padding: 12px 15px; 
     font-size: 16px; 
+    text-align: end;
     border: 1px solid #ccc; 
     width: 30%;
     box-sizing: border-box; 
@@ -167,9 +169,6 @@ For some reason the list sits 40px to the right ¯\_('-')_/¯ */
   transform: scale(1.05);
 }
 
-button {
-  border: none;
-}
 
 
 /********************************** Add Employee **********************************/
