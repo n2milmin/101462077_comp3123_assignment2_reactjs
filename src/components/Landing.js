@@ -1,49 +1,30 @@
 import React from "react";
-import { getEmployees } from "../api";
-import { Link } from 'react-router-dom';
-import AddEmployee from "./AddEmployee";
-// import DeleteEmployee from "./components/DeleteEmployee";
-// import EmployeeDetails from "./components/EmployeeDetails";
-// import Login from "./components/Login";
-// import Signup from "./components/Signup";
-// import UpdateEmployee from "./components/UpdateEmployee";
+import { useAuth } from "../AuthContext";
 
+export const Landing = () => {
 
-export default class Landing extends React.Component {
-    
-    state = {
-        employees: []
-    }
+    const { handleLogin, handleSignup } = useAuth();
 
-    // Get emps from backend 
-    componentDidMount() {
-        getEmployees()
-        .then( res => { 
-            console.log(res.data.employees)
-            this.setState({ employees : res.data.employees })
-            console.log(this.state.employees)
-        })
-        .catch(e => {
-            console.error(e)
-        })
-    }
+    return(
+        // login or signup 
+        <div className="container">
+            <header>
+                <h1>Employee Management App</h1>
+            </header>
 
-    render() {
-        return(
-            // login or signup 
-            <div className="container">
-                <header>
-                    <h1>Employee Management App</h1>
-                    <Link className="blueBtn" to={'/logout'}>Logout</Link>
-                    {/* <Link className="blueBtn" to={'/login'}>Login</Link> */}
-                </header>
+            <ul className="responsive-table">
+                <li className="table-header">Welcome</li>
+                <li className="table-row">
+                    <button className="blueBtn" onClick={handleLogin}>Login</button>
+                </li>
+                <li className="table-row">
+                    <button className="blueBtn" onClick={handleSignup}>Signup</button>
+                </li>
+            </ul>
 
-                <AddEmployee employee={this.state.employees[0]}/>
-
-                <footer>
-                    &copy; Nicole Milmine - 101462077
-                </footer>
-            </div>
-        )
-    }
+            <footer>
+                &copy; Nicole Milmine - 101462077
+            </footer>
+        </div>
+    )
 }
