@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
-export const EmployeeList = () => {
+export const EmployeeList = ({ employees }) => {
     
 
     return (
@@ -18,7 +19,7 @@ export const EmployeeList = () => {
                     <div className="col-4">Actions</div>
                 </li>
                 {
-                    this.state.employees.map(emp => (
+                    employees.map(emp => (
                         <li className="table-row">
                             <div className="col-1">{emp.first_name}</div>
                             <div className="col-2">{emp.last_name}</div>
