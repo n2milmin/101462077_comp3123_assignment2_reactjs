@@ -31,7 +31,7 @@ mongoose.connect('mongodb://admin:admin@localhost:27017/comp3123?authSource=admi
 
 //http://localhost:3000/
 app.route('/').get((req, res) => {
-    res.send("<h1>Welcome</h1>");
+    res.send("Nothing here");
 });
 
 // Listen to server
