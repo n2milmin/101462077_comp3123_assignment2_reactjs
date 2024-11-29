@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
-import { login, logout, signup } from './api';
-import { set } from 'mongoose';
+import { login, signup } from './api';
 import { Navigate } from 'react-router-dom';
 
 
@@ -8,15 +7,18 @@ const AuthContext = createContext()
 
 export const AuthProvider = ({ children }) => {
     
-    const [ accessToken, setAccessToken ] = useState(localStorage.getItem('accesstoken') || '')
+    const [ auth, setAuth ] = useState({
+        accessToken: (localStorage.getItem('accessToken') || ''),
+        error: ''
+    })
 
     useEffect(() => {
-        if( accessToken )
-            localStorage.setItem('accessToken', accessToken)
+        if( auth.accessToken )
+            localStorage.setItem('accessToken', auth.accessToken)
         else 
             localStorage.removeItem('accessToken')
         
-    }, [accessToken])
+    }, [auth.accessToken])
 
 
 
@@ -26,10 +28,17 @@ export const AuthProvider = ({ children }) => {
             const { data } = await signup({ user })
 
             localStorage.setItem('accessToken', data.accessToken)
-            setAccessToken( data.accessToken )
+            setAuth({
+                accessToken: data.accessToken,
+                error: ''
+            })
 
         } catch (e) {
             console.log("Frontend Signup failure: ", e)
+            setAuth({
+                accessToken: null,
+                error: e
+            })
         }
     }
 
@@ -40,12 +49,17 @@ export const AuthProvider = ({ children }) => {
             const { data } = await login({ username, password })
 
             localStorage.setItem('accessToken', data.accessToken)
-            setAccessToken( data.accessToken )
-
-            Navigate('/employeeList')
+            setAuth({
+                accessToken: data.accessToken,
+                error: ''
+            })
 
         } catch (e) {
             console.log("Frontend Login failure: ", e)
+            setAuth({
+                accessToken: null,
+                error: e
+            })
         }
     }
 
@@ -54,11 +68,17 @@ export const AuthProvider = ({ children }) => {
     const handleLogout = async () => {
         try {            
             localStorage.removeItem('accessToken')
-            setAccessToken( '' )
-
+            setAuth({
+                accessToken: null,
+                error: ''
+            })
 
         } catch (e) {
             console.log("Frontend Logout failure: ", e)
+            setAuth({
+                accessToken: localStorage.getItem('accessToken'),
+                error: e
+            })
         }
     }
 
@@ -66,7 +86,7 @@ export const AuthProvider = ({ children }) => {
 
     return (
         <AuthContext.Provider value={{
-            accessToken,
+            auth,
             handleLogin,
             handleLogout,
             handleSignup

@@ -1,25 +1,52 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { useNavigate } from "react-router-dom";
 
-export const Login = () => {
+const Login = () => {
 
-    const { handleLogin } = useAuth();
-    const [ username, setUsername ] = useState('')
-    const [ password, setPassword ] = useState('')
-    const [ message, setMessage ]   = useState('')
+    const navigate = useNavigate()
+    const { handleLogin, auth } = useAuth();
+    const [ username, setUsername ] = useState('johndoe')
+    const [ password, setPassword ] = useState('password123')
+    const [ message, setMessage ] = useState('')
+
+    const handleSubmit = async e => {
+        e.preventDefault()
+
+        if(!username || !password){
+            setMessage("Please fill in all fields")
+            return
+        }
+
+        try { 
+            await handleLogin(username, password)
+            
+            if(auth.accessToken){
+                setMessage('')
+                navigate('/')
+            } 
+            else {
+                setMessage(auth.error)
+                return
+            }
+        } catch (e){
+            setMessage(auth.error)
+        }
+    }
 
     return (
         <div>
             <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                <button className="blueBtn" to='/signup'>Signup</button>
+                <Link className="blueBtn" to='/signup'>Signup</Link>
             </header>
 
             <ul className="responsive-table">
                 <li className="table-header">Login</li>
 
-                { message != '' && <li className="table-row">{message}</li> }
+                { message !== '' && <li className="table-row">{message}</li> }
 
                 <li className="table-row">
                     <p className="left">Username: </p>
@@ -40,7 +67,7 @@ export const Login = () => {
                     />
                 </li>
                 <li className="table-row">
-                    <button className="blueBtn" onClick={handleLogin}>Login</button>
+                    <Link className="blueBtn" onClick={handleSubmit}>Login</Link>
                 </li>
             </ul>
 
@@ -51,3 +78,5 @@ export const Login = () => {
         </div>
     )
 }
+
+export default Login;

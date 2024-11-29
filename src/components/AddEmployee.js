@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useAuth } from "../AuthContext";
+import { Link } from "react-router-dom";
 
-export const AddEmployee = () => {
+const AddEmployee = () => {
 
     const { handleLogout } = useAuth();
     const [first_name, setFirstName] = useState("");
@@ -16,12 +17,13 @@ export const AddEmployee = () => {
     }
 
     return (
-        <form className="add-form">
+        <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                <button className="blueBtn" onClick={handleLogout}>Logout</button>
+                <Link className="blueBtn" onClick={handleLogout}>Logout</Link>
             </header>
 
+        <form className="add-form">
             <h2>Add Employee</h2>
 
             <ul className="responsive-table">
@@ -93,14 +95,17 @@ export const AddEmployee = () => {
                     />
                 </li>      
                 <li className="table-row">
-                    <button className="blueBtn" onClick={handleSubmit} >Submit</button> 
-                    <button className="blueBtn" to={`/employeeList`}>Back</button>
+                    <Link className="blueBtn" onClick={handleSubmit} >Submit</Link> 
+                    <Link className="blueBtn" to={`/employeeList`}>Back</Link>
                 </li>          
             </ul>
-            
+            </form >
+
             <footer>
                 &copy; Nicole Milmine - 101462077
             </footer>
-        </form >
+        </div>
     )
 }
+
+export default AddEmployee;

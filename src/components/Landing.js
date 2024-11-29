@@ -1,6 +1,7 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
-export const Landing = () => {
+const Landing = () => {
 
     return(
         // login or signup 
@@ -12,10 +13,10 @@ export const Landing = () => {
             <ul className="responsive-table">
                 <li className="table-header">Welcome</li>
                 <li className="table-row">
-                    <button className="blueBtn" to='/login'>Login</button>
+                    <Link className="blueBtn" to='/login'>Login</Link>
                 </li>
                 <li className="table-row">
-                    <button className="blueBtn" to='/signup'>Signup</button>
+                    <Link className="blueBtn" to='/signup'>Signup</Link>
                 </li>
             </ul>
 
@@ -25,3 +26,5 @@ export const Landing = () => {
         </div>
     )
 }
+
+export default Landing;

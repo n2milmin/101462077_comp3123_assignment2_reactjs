@@ -88,7 +88,7 @@ router.post("/login", async (req, res) => {
             $or: [{username: givenUser.username}, {email: givenUser.email}]
         });
 
-        const validatePassword = await bcrypt.compare(givenUser.password, foundUser.password)
+        const validatePassword = await compare(givenUser.password, foundUser.password)
         if(!foundUser || !validatePassword){
             res.status(401).json({
                 status: false,

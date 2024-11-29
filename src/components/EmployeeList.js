@@ -1,21 +1,43 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { getEmployees } from "../api";
 
-export const EmployeeList = () => {
+const EmployeeList = () => {
     
     const { handleLogout } = useAuth();
-    const employees = useState('')
+    const [ employees, setEmployees ] = useState([])
+
+    useEffect(() => {
+        const fetchEmp = async () => {
+            try { 
+                const res = await getEmployees()
+                
+                console.log(res.data)
+                setEmployees(res.data.employees)
+            } catch (e) {
+                console.log("Emp Fetch err: ", e)
+                setEmployees([])
+            }
+        }
+
+        fetchEmp()
+    }, [])
+
+    const handleDelete = () => {
+
+    }
 
     return (
         <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                <button className="blueBtn" onClick={handleLogout}>Logout</button>
+                <Link className="blueBtn" onClick={handleLogout}>Logout</Link>
             </header>
 
             <h2>Employee List</h2>
             <div className="addBtn">
-                <button className="blueBtn" to={`/add}`}>Add Employee</button>
+                <Link className="blueBtn" to='/addEmployee'>Add Employee</Link>
             </div>
 
             <ul className="responsive-table">
@@ -25,20 +47,23 @@ export const EmployeeList = () => {
                     <div className="col-3">Email</div>
                     <div className="col-4">Actions</div>
                 </li>
-                {
+                {   employees.length > 0 ? 
                     employees.map(emp => (
                         <li className="table-row">
                             <div className="col-1">{emp.first_name}</div>
                             <div className="col-2">{emp.last_name}</div>
                             <div className="col-3">{emp.email}</div>
                             <div className="col-4">
-                                <button className="blueBtn" to={`/update/${emp._id}`}>Update</button>
-                                <button className="redBtn" to={`/update/${emp._id}`}>Delete</button>
-                                <button className="blueBtn" to={`/update/${emp._id}`}>View</button>
+                                <Link className="blueBtn" to={`/updateEmployee/${emp._id}`}>Update</Link>
+                                <button className="redBtn" to={ handleDelete }>Delete</button>
+                                <Link className="blueBtn" to={`/employeeDetails/${emp._id}`}>View</Link>
                             </div>
 
                         </li>
-                    ))
+                    )) :
+                    <li className="table-row">
+                        <p>No employees to be found (*_*)</p>
+                    </li>
                 }
             </ul>
 
@@ -48,3 +73,5 @@ export const EmployeeList = () => {
         </div>
     )
 }
+
+export default EmployeeList;

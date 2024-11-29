@@ -1,9 +1,31 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../AuthContext";
+import { Link, useParams } from "react-router-dom";
+import { getEmployeeById } from "../api";
 
-export const EmployeeDetails = ({ employee }) => {
+const EmployeeDetails = ( ) => {
 
+    const { id } = useParams()
     const { handleLogout } = useAuth();
+    const [ employee, setEmployee ] = useState([])
+
+    useEffect(() => {
+        const fetchEmp = async () => {
+            try { 
+                const res = await getEmployeeById(id)
+                
+                console.log(res.data.emp)
+                setEmployee(res.data.emp)
+            } catch (e) {
+                console.log("Emp Fetch err: ", e)
+                setEmployee([])
+            }
+        }
+
+        fetchEmp()
+    }, [])
+
+
     const handleDelete = () => {
 
     }
@@ -46,9 +68,9 @@ export const EmployeeDetails = ({ employee }) => {
                     <p className="right">${ employee.salary }</p>
                 </li>      
                 <li className="table-row">
-                    <button className="blueBtn" to={`/update/${employee._id}`}>Update</button>
+                    <Link className="blueBtn" to={`/updateEmployee/${employee._id}`}>Update</Link>
                     <button className="redBtn" to={ handleDelete }>Delete</button>
-                    <button className="blueBtn" to={`/employeeList`}>Back</button>
+                    <Link className="blueBtn" to={`/employeeList`}>Back</Link>
                 </li>          
             </ul>
 
@@ -59,3 +81,5 @@ export const EmployeeDetails = ({ employee }) => {
         </div >
     )
 }
+
+export default EmployeeDetails;
