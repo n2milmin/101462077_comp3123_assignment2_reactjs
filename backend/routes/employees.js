@@ -13,10 +13,12 @@ router.get('/', (req, res) => {
 // Return all employees
 //http://localhost:3000/api/v1/emp/employees
 router.get("/employees", async (req, res) => {
+    console.log("Incoming request:", req.method, req.url);
     try{
         const employees = await model.find({});
-        res.status(201).json({employees});
+        res.status(200).json({employees});
     }catch(e){
+        console.log("DD")
         res.status(500).send(e)
     }
 });

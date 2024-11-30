@@ -15,7 +15,7 @@ const Signup = () => {
     useEffect(() => {
         if(auth.accessToken)
             navigate('/employeeList')
-    }, [])
+    }, [auth.accessToken, navigate])
 
     const handleSubmit = async e => {
         e.preventDefault()
@@ -26,13 +26,14 @@ const Signup = () => {
         }
 
         try { 
-            console.log(username, email, password)
-            await handleSignup(email, username, password)
-            console.log(email) 
+            const res = await handleSignup(email, username, password)
 
-            if(auth.accessToken){
+            if(res.accessToken){
+                console.log(email) 
                 console.log("YAY",auth.accessToken)
                 setMessage('')
+
+
                 navigate('/employeeList')
             } 
             else {

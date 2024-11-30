@@ -26,7 +26,7 @@ router.post('/signup', async (req, res) => {
     }
 
     // Preform task
-    try{
+    try{ 
         const { username, email, password } = req.body;
         
         // Check if user exists

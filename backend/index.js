@@ -10,8 +10,8 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true})); 
 app.use(cors({
     origin: "http://localhost:3001",
-    methods: ["GET", "POST"],
-    allowedHeaders: ['Content-Type']
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    allowedHeaders: ['Content-Type', "Authorization"]
 }));
 
 apiv1.use('/user', userRouter);

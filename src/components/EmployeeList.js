@@ -11,10 +11,11 @@ const EmployeeList = () => {
     useEffect(() => {
         const fetchEmp = async () => {
             try { 
+                console.log("before call")
                 const res = await getEmployees()
-                
+                console.log("after call")
                 console.log(res.data)
-                setEmployees(res.data.employees)
+                setEmployees(res.data?.employees || [])
             } catch (e) {
                 console.log("Emp Fetch err: ", e)
                 setEmployees([])
@@ -24,6 +25,10 @@ const EmployeeList = () => {
         fetchEmp()
     }, [])
 
+    const handleLogoutBtn = () => {
+
+    }
+
     const handleDelete = () => {
 
     }
@@ -32,7 +37,7 @@ const EmployeeList = () => {
         <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                <Link className="blueBtn" onClick={handleLogout}>Logout</Link>
+                <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
             </header>
 
             <h2>Employee List</h2>
@@ -49,13 +54,13 @@ const EmployeeList = () => {
                 </li>
                 {   employees.length > 0 ? 
                     employees.map(emp => (
-                        <li className="table-row">
+                        <li className="table-row" key={emp._id}>
                             <div className="col-1">{emp.first_name}</div>
                             <div className="col-2">{emp.last_name}</div>
                             <div className="col-3">{emp.email}</div>
                             <div className="col-4">
                                 <Link className="blueBtn" to={`/updateEmployee/${emp._id}`}>Update</Link>
-                                <button className="redBtn" to={ handleDelete }>Delete</button>
+                                <button className="redBtn" onClick={ handleDelete }>Delete</button>
                                 <Link className="blueBtn" to={`/employeeDetails/${emp._id}`}>View</Link>
                             </div>
 
