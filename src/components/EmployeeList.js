@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../AuthContext";
-import { getEmployees, deleteEmployee, departmet, position } from "../api";
+import { useAuth, handleLogout } from "../AuthContext";
+import { getEmployees, deleteEmployee, department, position } from "../api";
 
 const EmployeeList = () => {
     
@@ -24,14 +24,16 @@ const EmployeeList = () => {
 
             } else if(searchCriteria.kind == "department") {
                 setEmployees([])
+                console.log("fetchEmp err: ", searchCriteria)
 
-                const res = await departmet(searchCriteria.type)
+                const res = await department(searchCriteria.type)
                 console.log(res.data)
-                setEmployees(res.data?.employees || [])
+                setEmployees(res.data?.emp || [])
 
             } else if(searchCriteria.kind == "position"){
                 setEmployees([])
                 console.log("fetchEmp err: ", searchCriteria)
+
                 const res = await position(searchCriteria.type)
                 console.log(res.data)
                 setEmployees(res.data?.emp || [])
@@ -74,8 +76,8 @@ const EmployeeList = () => {
         <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                    <Link className="blueBtn" to='/logout'>Logout</Link>
-            </header>
+                    <button className="blueBtn" onClick={ handleLogoutBtn }>Logout</button>
+                </header>
 
             <h2>Employee List</h2>
             <div className="addBtn">
@@ -93,7 +95,7 @@ const EmployeeList = () => {
                             type="text"
                             placeholder=""
                             value={searchCriteria.type}
-                            onChange={c => setSearchCriteria({...searchCriteria, "type": c.target.value})} // Update searchTerm state
+                            onChange={c => setSearchCriteria({...searchCriteria, "type": c.target.value})} 
                         />
                     <button className="searchBtn" onClick={ fetchEmp }>Search</button>
                 </div>
@@ -141,28 +143,3 @@ const EmployeeList = () => {
 }
 
 export default EmployeeList;
-
-
-
-/*
-.blueBtn, .redBtn {
-  display: inline-block;
-  padding: 10px 20px;
-  font-size: 16px;
-  color: white;
-  border-radius: 5px;
-  text-align: center;
-  text-decoration: none;
-  cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.blueBtn {
-  background-color: #007bffd3;
-}
-
-.blueBtn:hover {
-  background-color: #0056b3;
-  transform: scale(1.05);
-}
-*/

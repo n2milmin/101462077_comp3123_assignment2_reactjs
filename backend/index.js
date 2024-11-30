@@ -9,7 +9,7 @@ const cors = require('cors');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true})); 
 app.use(cors({
-    origin: "http://localhost:3001",
+    origin: "http://localhost:3000",
     methods: ["GET", "PUT", "POST", "DELETE"],
     allowedHeaders: ['Content-Type', "Authorization"]
 }));
@@ -35,6 +35,6 @@ app.route('/').get((req, res) => {
 });
 
 // Listen to server
-app.listen(3000, () => {
-    console.log('Server is running on http://localhost:3000');
+app.listen(5000, () => {
+    console.log('Server is running on http://localhost:5000');
 })

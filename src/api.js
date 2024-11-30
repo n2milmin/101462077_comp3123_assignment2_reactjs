@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const API = axios.create({ 
-    baseURL: 'http://localhost:3000/api/v1',
+    baseURL: 'http://localhost:5000/api/v1',
     headers: { 'Content-Type': 'application/json' },
 })
 
@@ -41,7 +41,7 @@ export const signup = async data => API.post('/user/signup', data)
 
 /******************************** Search ********************************/
 // department 
-export const departmet = async type => API.get(`/emp/search/department/${type}`)
+export const department = async type => API.get(`/emp/search/department/${type}`)
 
 // position 
 export const position = async type => API.get(`/emp/search/position/${type}`)
