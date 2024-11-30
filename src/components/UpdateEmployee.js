@@ -70,7 +70,10 @@ const UpdateEmployee = ( ) => {
         <div className="container">            
             <header>
                 <h1>Employee Management App</h1>
-                <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: '10px' }}>
+                    <Link className="blueBtn" to='/employeeList'>Home</Link>
+                    <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
+                </div>
             </header>
 
             <h2>{employee ? "Edit Employee" : "Add Employee"}</h2>
