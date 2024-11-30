@@ -1,16 +1,31 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "../AuthContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const AddEmployee = () => {
 
     const { handleLogout } = useAuth();
+    const navigate = useNavigate()
     const [first_name, setFirstName] = useState("");
     const [last_name, setLastName] = useState("");
     const [email, setEmail] = useState("");
     const [position, setPosition] = useState("");
     const [salary, setSalary] = useState("");
     const [department, setDepartment] = useState("");
+
+    useEffect(() => {
+        
+    }, [navigate])
+    
+    const handleLogoutBtn = async () => {
+        try {
+            await handleLogout();
+
+            navigate('/')
+        } catch (e) {
+            console.log("Error logging out: ", e)
+        }
+    }
 
     const handleSubmit = () => {
 
@@ -20,7 +35,7 @@ const AddEmployee = () => {
         <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                <Link className="blueBtn" onClick={handleLogout}>Logout</Link>
+                <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
             </header>
 
         <form className="add-form">
@@ -95,7 +110,7 @@ const AddEmployee = () => {
                     />
                 </li>      
                 <li className="table-row">
-                    <Link className="blueBtn" onClick={handleSubmit} >Submit</Link> 
+                    <button className="blueBtn" onClick={handleSubmit} >Submit</button> 
                     <Link className="blueBtn" to={`/employeeList`}>Back</Link>
                 </li>          
             </ul>

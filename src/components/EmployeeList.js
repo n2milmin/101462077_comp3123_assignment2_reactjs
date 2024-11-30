@@ -1,27 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
-import { getEmployees } from "../api";
+import { getEmployees, deleteEmployee } from "../api";
 
 const EmployeeList = () => {
     
     const navigate = useNavigate()
     const { handleLogout } = useAuth();
     const [ employees, setEmployees ] = useState([])
+    const [ message, setMessage ] = useState('')
 
-    useEffect(() => {
-        const fetchEmp = async () => {
-            try { 
-                const res = await getEmployees()
+    const fetchEmp = async () => {
+        try { 
+            const res = await getEmployees()
 
-                console.log(res.data)
-                setEmployees(res.data?.employees || [])
-            } catch (e) {
-                console.log("Emp Fetch err: ", e)
-                setEmployees([])
-            }
+            console.log(res.data)
+            setEmployees(res.data?.employees || [])
+        } catch (e) {
+            console.log("Emp Fetch err: ", e)
+            setEmployees([])
         }
-
+    }
+    
+    useEffect(() => {
         fetchEmp()
     }, [navigate])
 
@@ -35,8 +36,14 @@ const EmployeeList = () => {
         }
     }
 
-    const handleDelete = () => {
-
+    const handleDelete = async id => {
+        try{
+            await deleteEmployee(id)
+            setMessage('')
+            fetchEmp()
+        } catch (e) {
+            setMessage("Delete error: ", e.message)
+        }
     }
 
     return (
@@ -50,7 +57,7 @@ const EmployeeList = () => {
             <div className="addBtn">
                 <Link className="blueBtn" to='/addEmployee'>Add Employee</Link>
             </div>
-
+            
             <ul className="responsive-table">
                 <li className="table-header">
                     <div className="col-1">First Name</div>
@@ -58,6 +65,13 @@ const EmployeeList = () => {
                     <div className="col-3">Email</div>
                     <div className="col-4">Actions</div>
                 </li>
+
+                { message !== '' && 
+                    <li className="table-row">
+                        <p>{message}</p>
+                    </li>
+                }   
+
                 {   employees.length > 0 ? 
                     employees.map(emp => (
                         <li className="table-row" key={emp._id}>
@@ -66,7 +80,7 @@ const EmployeeList = () => {
                             <div className="col-3">{emp.email}</div>
                             <div className="col-4">
                                 <Link className="blueBtn" to={`/updateEmployee/${emp._id}`}>Update</Link>
-                                <button className="redBtn" onClick={ handleDelete }>Delete</button>
+                                <button className="redBtn" onClick={() => handleDelete(emp._id) }>Delete</button>
                                 <Link className="blueBtn" to={`/employeeDetails/${emp._id}`}>View</Link>
                             </div>
 

@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../AuthContext";
-import { Link, useParams } from "react-router-dom";
-import { getEmployeeById } from "../api";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { getEmployeeById, deleteEmployee } from "../api";
 
 const EmployeeDetails = ( ) => {
 
     const { id } = useParams()
+    const navigate = useNavigate()
     const { handleLogout } = useAuth();
     const [ employee, setEmployee ] = useState([])
+    const [ message, setMessage ] = useState('')
 
     useEffect(() => {
         const fetchEmp = async () => {
@@ -23,18 +25,35 @@ const EmployeeDetails = ( ) => {
         }
 
         fetchEmp()
-    }, [])
+        setMessage('')
+    }, [navigate])
 
+    
+    const handleLogoutBtn = async () => {
+        try {
+            await handleLogout();
 
-    const handleDelete = () => {
+            navigate('/')
+        } catch (e) {
+            console.log("Error logging out: ", e)
+        }
+    }
 
+    const handleDelete = async () => {
+        try{
+            await deleteEmployee(id)
+            setMessage('')
+            navigate('/employeeList')
+        } catch (e) {
+            setMessage("Delete error: ", e.message)
+        }
     }
 
     return (
         <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                <button className="blueBtn" onClick={handleLogout}>Logout</button>
+                <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
             </header>
             <h2>Employee Details</h2>
 
@@ -67,9 +86,15 @@ const EmployeeDetails = ( ) => {
                     <p className="left">Salary:</p> 
                     <p className="right">${ employee.salary }</p>
                 </li>      
+
+                { message !== '' && 
+                    <li className="table-row">
+                        <p>{message}</p>
+                    </li>
+                }
                 <li className="table-row">
                     <Link className="blueBtn" to={`/updateEmployee/${employee._id}`}>Update</Link>
-                    <button className="redBtn" to={ handleDelete }>Delete</button>
+                    <button className="redBtn" onClick={ handleDelete }>Delete</button>
                     <Link className="blueBtn" to={`/employeeList`}>Back</Link>
                 </li>          
             </ul>

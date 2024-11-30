@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import { getEmployeeById } from "../api";
 
 const UpdateEmployee = ( ) => {
 
     const { id } = useParams()
+    const navigate = useNavigate() 
     const { handleLogout } = useAuth();
     const [ employee, setEmployee ] = useState([])
 
@@ -23,7 +24,18 @@ const UpdateEmployee = ( ) => {
         }
 
         fetchEmp()
-    }, [])
+    }, [navigate])
+
+    
+    const handleLogoutBtn = async () => {
+        try {
+            await handleLogout();
+
+            navigate('/')
+        } catch (e) {
+            console.log("Error logging out: ", e)
+        }
+    }
 
     const handleSubmit = () => {
 
@@ -33,7 +45,7 @@ const UpdateEmployee = ( ) => {
         <div className="container">            
             <header>
                 <h1>Employee Management App</h1>
-                <button className="blueBtn" onClick={handleLogout}>Logout</button>
+                <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
             </header>
 
             <form className="add-form">
@@ -108,7 +120,7 @@ const UpdateEmployee = ( ) => {
                     </li>      
                     <li className="table-row">
                         <Link className="blueBtn" to="/update">Update</Link>
-                        <Link className="blueBtn" to={`/employeeList`}>Back</Link>
+                        <Link className="blueBtn" to='/employeeList'>Back</Link>
                     </li>          
                 </ul>
             </form >
