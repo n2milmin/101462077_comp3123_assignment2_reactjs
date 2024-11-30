@@ -43,9 +43,8 @@ router.get("/employees/:id", query('id').notEmpty(), async (req, res) => {
 router.get("/search/department/:type", query('type').notEmpty(), async (req, res) => {
     // Preform task
     try{
-        const type = new mongoose.Types.ObjectId(req.params)
         // Find user
-        const emp = await model.findOne({"department": type});
+        const emp = await model.find({"department": { $regex: req.params.type, $options: 'i' }});
 
         // Return user if exists
         if(emp)
@@ -61,9 +60,8 @@ router.get("/search/department/:type", query('type').notEmpty(), async (req, res
 router.get("/search/position/:type", query('type').notEmpty(), async (req, res) => {
     // Preform task
     try{
-        const type = new mongoose.Types.ObjectId(req.params)
         // Find user
-        const emp = await model.findOne({"position": type});
+        const emp = await model.find({"position": { $regex: req.params.type, $options: 'i' }});
 
         // Return user if exists
         if(emp)

@@ -44,4 +44,4 @@ export const signup = async data => API.post('/user/signup', data)
 export const departmet = async type => API.get(`/emp/search/department/${type}`)
 
 // position 
-export const position = async type => API.get(`/emp/search/department/${type}`)
+export const position = async type => API.get(`/emp/search/position/${type}`)

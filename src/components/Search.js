@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
-import { getEmployees, deleteEmployee, departmet, position } from "../api";
+import { getEmployees, deleteEmployee } from "../api";
 
 const EmployeeList = () => {
     
@@ -9,37 +9,13 @@ const EmployeeList = () => {
     const { handleLogout } = useAuth();
     const [ employees, setEmployees ] = useState([])
     const [ message, setMessage ] = useState('')
-    const [searchCriteria, setSearchCriteria] = useState({
-        "kind": '',
-        "type": ''
-    });
 
     const fetchEmp = async () => {
         try { 
-            if(searchCriteria.kind == ''){
-                const res = await getEmployees()    
-                console.log(res)
-                setEmployees(res.data?.employees || [])
-                setMessage('')
+            const res = await getEmployees()
 
-            } else if(searchCriteria.kind == "department") {
-                setEmployees([])
-
-                const res = await departmet(searchCriteria.type)
-                console.log(res.data)
-                setEmployees(res.data?.employees || [])
-
-            } else if(searchCriteria.kind == "position"){
-                setEmployees([])
-                console.log("fetchEmp err: ", searchCriteria)
-                const res = await position(searchCriteria.type)
-                console.log(res.data)
-                setEmployees(res.data?.emp || [])
-
-            }else{
-                setEmployees([])
-            }
-
+            console.log(res.data)
+            setEmployees(res.data?.employees || [])
         } catch (e) {
             console.log("Emp Fetch err: ", e)
             setEmployees([])
@@ -48,7 +24,7 @@ const EmployeeList = () => {
     
     useEffect(() => {
         fetchEmp()
-    }, [])
+    }, [navigate])
 
     const handleLogoutBtn = async () => {
         try {
@@ -74,27 +50,12 @@ const EmployeeList = () => {
         <div className="container">
             <header>
                 <h1>Employee Management App</h1>
-                    <Link className="blueBtn" to='/logout'>Logout</Link>
+                <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
             </header>
 
             <h2>Employee List</h2>
             <div className="addBtn">
                 <Link className="blueBtn" to='/addEmployee'>Add Employee</Link>
-
-                <div className="search">
-                    <select onChange={c => setSearchCriteria({...searchCriteria, "kind": c.target.value})} value={searchCriteria.kind}>
-                        <option value="">Select Filter</option>
-                        <option value="department">Department</option>
-                        <option value="position">Position</option>
-                    </select>
-                    <input
-                            type="text"
-                            placeholder=""
-                            value={searchCriteria.type}
-                            onChange={c => setSearchCriteria({...searchCriteria, "type": c.target.value})} // Update searchTerm state
-                        />
-                    <button className="searchBtn" onClick={ fetchEmp }>Search</button>
-                </div>
             </div>
             
             <ul className="responsive-table">
