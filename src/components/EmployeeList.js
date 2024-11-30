@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../AuthContext";
 import { getEmployees } from "../api";
 
 const EmployeeList = () => {
     
+    const navigate = useNavigate()
     const { handleLogout } = useAuth();
     const [ employees, setEmployees ] = useState([])
 
     useEffect(() => {
         const fetchEmp = async () => {
             try { 
-                console.log("before call")
                 const res = await getEmployees()
-                console.log("after call")
+
                 console.log(res.data)
                 setEmployees(res.data?.employees || [])
             } catch (e) {
@@ -23,10 +23,16 @@ const EmployeeList = () => {
         }
 
         fetchEmp()
-    }, [])
+    }, [navigate])
 
-    const handleLogoutBtn = () => {
+    const handleLogoutBtn = async () => {
+        try {
+            await handleLogout();
 
+            navigate('/')
+        } catch (e) {
+            console.log("Error logging out: ", e)
+        }
     }
 
     const handleDelete = () => {
