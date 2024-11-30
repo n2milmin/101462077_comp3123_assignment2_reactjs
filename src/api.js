@@ -24,7 +24,7 @@ export const getEmployeeById = id => API.get(`/emp/employees/${id}`)
 export const addEmployee = data => API.post('/emp/employees', data)
 
 // POST update emp
-export const updateEmployee = (id, data) => API.post(`/emp/employees/${id}`, data)
+export const updateEmployee = async (id, data) => API.put(`/emp/employees/${id}`, data)
 
 // DELETE emp
 export const deleteEmployee = id => API.delete(`/emp/employees/${id}`)

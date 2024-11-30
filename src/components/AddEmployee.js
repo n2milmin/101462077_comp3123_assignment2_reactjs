@@ -38,7 +38,7 @@ const AddEmployee = () => {
         } 
 
         try{ 
-            const { data } = await addEmployee({
+            const res = await addEmployee({
                 first_name,
                 last_name,
                 email,
@@ -47,12 +47,12 @@ const AddEmployee = () => {
                 department
             })
 
-            if(data.ok){
+            if(res.ok){
                 setMessage("User sucessfully created!")
                 window.scrollTo(0,0)
             } 
         } catch (e) {
-            setMessage("Error: please ensure email is unique and all fields are completed.")
+            setMessage("Error: please ensure email is unique.")
             window.scrollTo(0,0)
         }
     }

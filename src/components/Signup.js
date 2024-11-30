@@ -26,7 +26,7 @@ const Signup = () => {
         }
 
         try { 
-            const res = await handleSignup(email, username, password)
+            const {res} = await handleSignup(email, username, password)
 
             if(res.accessToken){
                 console.log(email) 
