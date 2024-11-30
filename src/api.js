@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { data } from 'react-router-dom';
 
 const API = axios.create({ 
     baseURL: 'http://localhost:3000/api/v1',
@@ -36,4 +37,4 @@ export const deleteEmployee = id => API.delete(`/emp/employees/${id}`)
 export const login = data => API.post('/user/login', data)
 
 // POST signup 
-export const signup = user => API.post('/user/signup', user)
+export const signup = async data => API.post('/user/signup', data)

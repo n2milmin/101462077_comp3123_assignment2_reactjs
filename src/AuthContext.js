@@ -23,9 +23,9 @@ export const AuthProvider = ({ children }) => {
 
 
     // Signup 
-    const handleSignup = async user => {
+    const handleSignup = async (email, username, password) => {
         try {
-            const { data } = await signup({ user })
+            const { data } = await signup({email, username, password})
 
             localStorage.setItem('accessToken', data.accessToken)
             setAuth({
@@ -34,7 +34,7 @@ export const AuthProvider = ({ children }) => {
             })
 
         } catch (e) {
-            console.log("Frontend Signup failure: ", e)
+            console.log("Frontend Signup failure: ", e.message)
             setAuth({
                 accessToken: null,
                 error: e

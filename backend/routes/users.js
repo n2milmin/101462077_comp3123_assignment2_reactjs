@@ -35,10 +35,7 @@ router.post('/signup', async (req, res) => {
                 message: "Username already exists"
             })
             return;
-        };
-
-        // Hash password
-        
+        };        
 
         // Create user
         let user = await new model({
@@ -47,15 +44,21 @@ router.post('/signup', async (req, res) => {
             password: password,
             created_at: Date.now()
         });
-        
+
         // Save & fetch new user
         await user.save();
         user = await model.findOne({username: username});
 
-        res.status(201).json({
-            message: "User created successfully",
-            user_id: user.id
-        });
+        const accessToken = jwt.sign(
+            { id: user._id},
+            ACCESS_SECRET
+        )
+        
+        res.status(200).json({
+            status: true,
+            accessToken, 
+            message: "User created",
+        })
     } catch(e){
         res.status(500).send(e);
     }

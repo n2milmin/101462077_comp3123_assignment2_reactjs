@@ -7,18 +7,41 @@ const Signup = () => {
 
     const navigate = useNavigate()
     const { handleSignup, auth } = useAuth();
-    const [ username, setUsername ] = useState('')
-    const [ password, setPassword ] = useState('')
+    const [ email, setEmail ] = useState('user1@domain.ca')
+    const [ username, setUsername ] = useState('user1')
+    const [ password, setPassword ] = useState('user1')
     const [ message, setMessage ] = useState('')
 
     useEffect(() => {
         if(auth.accessToken)
             navigate('/employeeList')
-    })
+    }, [])
 
     const handleSubmit = async e => {
-        
-        navigate('/employeeList')
+        e.preventDefault()
+
+        if(!email || !username || !password){
+            setMessage("Please fill in all fields")
+            return
+        }
+
+        try { 
+            console.log(username, email, password)
+            await handleSignup(email, username, password)
+            console.log(email) 
+
+            if(auth.accessToken){
+                console.log("YAY",auth.accessToken)
+                setMessage('')
+                navigate('/employeeList')
+            } 
+            else {
+                setMessage(auth.error)
+                return
+            }
+        } catch (e){
+            setMessage(auth.error)
+        }
     }
 
     return (
@@ -34,6 +57,15 @@ const Signup = () => {
                 { message !== '' && <li className="table-row">{message}</li> }
 
                 <li className="table-row">
+                    <p className="left">email: </p>
+                    <input 
+                        type="text"
+                        id="email"
+                        value={email}
+                        onChange={c => setEmail(c.target.value)}
+                    />
+                </li>
+                <li className="table-row">
                     <p className="left">Username: </p>
                     <input 
                         type="text"
@@ -45,7 +77,7 @@ const Signup = () => {
                 <li className="table-row">
                     <p className="left">password: </p>
                     <input 
-                        type="text"
+                        type="password"
                         id="password"
                         value={password}
                         onChange={c => setPassword(c.target.value)}
