@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useAuth } from "../AuthContext";
 import { Link, useNavigate } from "react-router-dom";
+import { addEmployee } from "../api";
 
 const AddEmployee = () => {
 
@@ -12,9 +13,10 @@ const AddEmployee = () => {
     const [position, setPosition] = useState("");
     const [salary, setSalary] = useState("");
     const [department, setDepartment] = useState("");
+    const [ message, setMessage ] = useState('')
 
     useEffect(() => {
-        
+
     }, [navigate])
     
     const handleLogoutBtn = async () => {
@@ -27,8 +29,32 @@ const AddEmployee = () => {
         }
     }
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
 
+        if (!first_name || !last_name || !email || !position || !salary || !department) {
+            setMessage("No, really. Say more")
+            window.scrollTo(0,0)
+            return 
+        } 
+
+        try{ 
+            const { data } = await addEmployee({
+                first_name,
+                last_name,
+                email,
+                position,
+                salary, 
+                department
+            })
+
+            if(data.ok){
+                setMessage("User sucessfully created!")
+                window.scrollTo(0,0)
+            } 
+        } catch (e) {
+            setMessage("Error: please ensure email is unique and all fields are completed.")
+            window.scrollTo(0,0)
+        }
     }
 
     return (
@@ -38,11 +64,15 @@ const AddEmployee = () => {
                 <button className="blueBtn" onClick={handleLogoutBtn}>Logout</button>
             </header>
 
-        <form className="add-form">
             <h2>Add Employee</h2>
 
             <ul className="responsive-table">
-                <li className="table-header">say more</li>
+                { message == '' ? 
+                    <li className="table-header">say more</li> :
+                    <li className="table-header">
+                        <p>{message}</p>
+                    </li>
+                } 
 
                 {/* First Name  */}
                 <li className="table-row">
@@ -110,11 +140,10 @@ const AddEmployee = () => {
                     />
                 </li>      
                 <li className="table-row">
-                    <button className="blueBtn" onClick={handleSubmit} >Submit</button> 
+                    <button className="blueBtn" onClick={handleSubmit} >Add</button> 
                     <Link className="blueBtn" to={`/employeeList`}>Back</Link>
                 </li>          
             </ul>
-            </form >
 
             <footer>
                 &copy; Nicole Milmine - 101462077

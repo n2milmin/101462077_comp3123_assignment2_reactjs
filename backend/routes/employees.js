@@ -69,15 +69,14 @@ router.post("/employees", async (req, res) => {
         const email = req.body.email;
         // Does user with email already exist
         if(await model.findOne({email: email})){
-            res.status(401).json({
-                message: `User with email ${email} already exists.`
-            });
+            res.status(401).json(`User with email ${email} already exists.`);
             return
         }
 
         // Create new emp
         const newEmp = await new model({
             ...req.body,
+            date_of_joining: Date.now(),
             created_at: Date.now()
         })
 
