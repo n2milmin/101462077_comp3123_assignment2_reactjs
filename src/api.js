@@ -37,3 +37,11 @@ export const login = data => API.post('/user/login', data)
 
 // POST signup 
 export const signup = async data => API.post('/user/signup', data)
+
+
+/******************************** Search ********************************/
+// department 
+export const departmet = async type => API.get(`/emp/search/department/${type}`)
+
+// position 
+export const position = async type => API.get(`/emp/search/department/${type}`)

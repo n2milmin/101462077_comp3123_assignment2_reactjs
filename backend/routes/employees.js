@@ -4,11 +4,6 @@ const mongoose = require('mongoose');
 const { query, validationResult } = require('express-validator');
 const router = express.Router();
 
-// Landing page
-//http://localhost:3000/api/v1/emp/
-router.get('/', (req, res) => {
-    res.send("<h1>Welcome from Employees</h1>");
-});
 
 // Return all employees
 //http://localhost:3000/api/v1/emp/employees
@@ -37,6 +32,44 @@ router.get("/employees/:id", query('id').notEmpty(), async (req, res) => {
             res.status(201).json({emp});
         else
             res.status(401).json({message: "User not found"});
+    }catch(e){
+        res.status(500).send(e);
+    }
+});
+
+
+// SEARCH
+//http://localhost:3000/api/v1/emp/search/department
+router.get("/search/department/:type", query('type').notEmpty(), async (req, res) => {
+    // Preform task
+    try{
+        const type = new mongoose.Types.ObjectId(req.params)
+        // Find user
+        const emp = await model.findOne({"department": type});
+
+        // Return user if exists
+        if(emp)
+            res.status(201).json({emp});
+        else
+            res.status(401).json({message: "No users found"});
+    }catch(e){
+        res.status(500).send(e);
+    }
+});
+
+//http://localhost:3000/api/v1/emp/search/position
+router.get("/search/position/:type", query('type').notEmpty(), async (req, res) => {
+    // Preform task
+    try{
+        const type = new mongoose.Types.ObjectId(req.params)
+        // Find user
+        const emp = await model.findOne({"position": type});
+
+        // Return user if exists
+        if(emp)
+            res.status(201).json({emp});
+        else
+            res.status(401).json({message: "No users found"});
     }catch(e){
         res.status(500).send(e);
     }
