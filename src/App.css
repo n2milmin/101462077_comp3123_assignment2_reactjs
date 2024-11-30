@@ -55,7 +55,6 @@ footer {
 
 
 
-/********************************** Employees List  **********************************/
 h2 {
   display: flex;
   align-items: center;
@@ -72,7 +71,9 @@ h2 {
 
 /* Table 
 Taken from free cite & adapted to work here 
-For some reason the list sits 40px to the right ¯\_('-')_/¯ */
+For some reason the list sits 40px to the right and header col 2&3 sit slightly left
+¯\_('-')_/¯ 
+*/
 .responsive-table {
   min-height: 78.5vh;
   
@@ -85,7 +86,7 @@ For some reason the list sits 40px to the right ¯\_('-')_/¯ */
     margin-bottom: 25px;
     text-align: center;
     align-items: center;
-    justify-content: flex-start;
+    justify-content: center;
   }
   .table-header {
     background-color: #8aa0a1;
@@ -93,7 +94,10 @@ For some reason the list sits 40px to the right ¯\_('-')_/¯ */
     text-transform: uppercase;
     letter-spacing: 0.03em;
     padding: 30px 0 30px;
-    justify-content: center
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    justify-items: center;
   }
   .table-row {
     background-color: #8f8fb9;
@@ -178,4 +182,50 @@ button {
 
 
 
-/********************************** Add Employee **********************************/
+/********************************** SEARCH **********************************/
+.addBtn {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search {
+  
+  select {
+    margin-left: 5px;
+    display: inline-block;
+    padding: 5px 15px;
+    font-size: 14px;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    cursor: pointer;
+    color: white;
+    background-color: #5a505090;
+  }
+
+  input {
+    font-size: 14px;
+    padding: 5px 20px 5px 0 ;
+    text-align: end;
+  }
+}
+
+.searchBtn {
+  
+  display: inline-block;
+  padding: 8px 20px;
+  font-size: 16px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  background-color: #007bffd3;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.searchBtn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}

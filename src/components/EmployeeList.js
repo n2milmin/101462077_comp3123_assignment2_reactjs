@@ -82,7 +82,9 @@ const EmployeeList = () => {
                 <Link className="blueBtn" to='/addEmployee'>Add Employee</Link>
 
                 <div className="search">
-                    <select onChange={c => setSearchCriteria({...searchCriteria, "kind": c.target.value})} value={searchCriteria.kind}>
+                    <select 
+                    onChange={c => setSearchCriteria({...searchCriteria, "kind": c.target.value})} 
+                    value={searchCriteria.kind}>
                         <option value="">Select Filter</option>
                         <option value="department">Department</option>
                         <option value="position">Position</option>
@@ -139,3 +141,28 @@ const EmployeeList = () => {
 }
 
 export default EmployeeList;
+
+
+
+/*
+.blueBtn, .redBtn {
+  display: inline-block;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: white;
+  border-radius: 5px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.blueBtn {
+  background-color: #007bffd3;
+}
+
+.blueBtn:hover {
+  background-color: #0056b3;
+  transform: scale(1.05);
+}
+*/
