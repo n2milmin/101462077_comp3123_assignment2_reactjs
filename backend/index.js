@@ -8,29 +8,17 @@ const cors = require('cors');
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: true})); 
-// app.use(cors({
-//     origin: "http://host.docker.internal:3000",
-//     methods: ["GET", "PUT", "POST", "DELETE"],
-//     allowedHeaders: ['Content-Type', "Authorization"]
-// }));
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "PUT", "POST", "DELETE"],
+    allowedHeaders: ['Content-Type', "Authorization"]
+}));
 
 apiv1.use('/user', userRouter);
 apiv1.use('/emp', empRouter);
 app.use('/api/v1', apiv1)
 
-// mongoose
-//     .connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/employeedb', {
-//         useNewUrlParser: true,
-//         useUnifiedTopology: true,
-//     })
-//     .then(() => {
-//         console.log('MongoDB connected')
-//     })
-//     .catch((error) => {
-//         console.error('MongoDB connection error:', error)}
-//     );
 
-// mongoose.Promise = global.Promise;
 mongoose.connect(process.env.MONGO_URI || 'mongodb://127.0.0.1:27017/comp3123', {
     useNewUrlParser: true,
     useUnifiedTopology: true

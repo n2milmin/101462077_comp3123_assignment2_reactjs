@@ -1,6 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { login, signup } from './api';
-import { Navigate } from 'react-router-dom';
 
 
 const AuthContext = createContext()
@@ -47,6 +46,7 @@ export const AuthProvider = ({ children }) => {
     const handleLogin = async (username, password) => {
         try {
             const { data } = await login({ username, password })
+            console.log("Got data ", data)
 
             localStorage.setItem('accessToken', data.accessToken)
             setAuth({
