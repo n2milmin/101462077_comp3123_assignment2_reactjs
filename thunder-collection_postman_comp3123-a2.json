@@ -1,0 +1,233 @@
+{
+    "info": {
+        "_postman_id": "239ce653-1f69-4a7b-bca8-1d219eaf0d90",
+        "name": "comp3123-a2",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "description": ""
+    },
+    "item": [
+        {
+            "name": "GET Employees",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/emp/employees",
+                    "path": [
+                        "api",
+                        "v1",
+                        "emp",
+                        "employees"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        },
+        {
+            "name": "PUT Update Employee by ID",
+            "request": {
+                "method": "PUT",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/emp/employees/674a6d3086502a0201d84bcb",
+                    "path": [
+                        "api",
+                        "v1",
+                        "emp",
+                        "employees",
+                        "674a6d3086502a0201d84bcb"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n \"first_name\": \"Karen\",\n \"position\": \"Secretary\"\n}"
+                }
+            }
+        },
+        {
+            "name": "GET Employee by ID",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/emp/employees/670926718fb23a1c3ed44690",
+                    "path": [
+                        "api",
+                        "v1",
+                        "emp",
+                        "employees",
+                        "670926718fb23a1c3ed44690"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        },
+        {
+            "name": "DELETE Employee by ID",
+            "request": {
+                "method": "DELETE",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/emp/employees/67082bef20fd9e8c8723140e",
+                    "path": [
+                        "api",
+                        "v1",
+                        "emp",
+                        "employees",
+                        "67082bef20fd9e8c8723140e"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        },
+        {
+            "name": "POST Add Employee",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/emp/employees",
+                    "path": [
+                        "api",
+                        "v1",
+                        "emp",
+                        "employees"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"first_name\": \"John\",\n  \"last_name\": \"Doe\",\n  \"email\": \"john.doe@domain.ca\",\n  \"position\": \"Manager\",\n  \"salary\": 90000,\n  \"date_of_joining\": \"2023-08-10T00:00:00.000Z\",\n  \"department\": \"HR\"\n}"
+                }
+            }
+        },
+        {
+            "name": "POST signup",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/user/signup",
+                    "path": [
+                        "api",
+                        "v1",
+                        "user",
+                        "signup"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"username\": \"johndoe\",\n  \"email\": \"johndoe@domain.com\",\n  \"password\": \"password123\"\n}"
+                }
+            }
+        },
+        {
+            "name": "POST Login",
+            "request": {
+                "method": "POST",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/user/login",
+                    "path": [
+                        "api",
+                        "v1",
+                        "user",
+                        "login"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                },
+                "body": {
+                    "mode": "raw",
+                    "options": {
+                        "raw": {
+                            "language": "json"
+                        }
+                    },
+                    "raw": "{\n  \"email\": \"johndoe@domain.com\",\n  \"password\": \"password123\"\n}"
+                }
+            }
+        },
+        {
+            "name": "Department Search",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/emp/search/department/hr",
+                    "path": [
+                        "api",
+                        "v1",
+                        "emp",
+                        "search",
+                        "department",
+                        "hr"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        },
+        {
+            "name": "Position Search",
+            "request": {
+                "method": "GET",
+                "url": {
+                    "raw": "http://localhost:5000/api/v1/emp/search/position/manager",
+                    "path": [
+                        "api",
+                        "v1",
+                        "emp",
+                        "search",
+                        "position",
+                        "manager"
+                    ],
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "5000"
+                }
+            }
+        }
+    ]
+}
